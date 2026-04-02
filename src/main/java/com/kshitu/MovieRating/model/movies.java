@@ -24,7 +24,7 @@ public class movies {
     private float duration;
     private String director;
     private Date release_date;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<review> reviews;
 
 }

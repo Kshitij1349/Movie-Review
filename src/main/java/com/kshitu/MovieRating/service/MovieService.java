@@ -1,5 +1,6 @@
 package com.kshitu.MovieRating.service;
 
+
 import com.kshitu.MovieRating.repository.MovieRepo;
 import com.kshitu.MovieRating.dto.MovieRequestDTO;
 import com.kshitu.MovieRating.dto.MovieResponseDTO;
@@ -37,7 +38,8 @@ public class MovieService {
     }
 
     public MovieResponseDTO getById(Long id) {
-        movies m= repo.findById(id).orElse(new movies());
+        movies m= repo.findById(id).orElseThrow(()-> new RuntimeException("Movie not found"));
+
         MovieResponseDTO DTO=new MovieResponseDTO(
                 m.getId(),
                 m.getName(),
@@ -59,7 +61,7 @@ public class MovieService {
     }
 
     public MovieResponseDTO updateMovie(Long movieId, MovieRequestDTO m) {
-        movies movie=repo.findById(movieId).orElse(new movies());
+        movies movie=repo.findById(movieId).orElseThrow(()-> new RuntimeException("Movie not found for updating it"));
 
         movie.setName(m.name());
         movie.setDirector(m.director());
@@ -81,7 +83,7 @@ public class MovieService {
     }
 
     public MovieResponseDTO deleteById(Long id) {
-        movies movie=repo.findById(id).orElse(new movies());
+        movies movie=repo.findById(id).orElseThrow(()-> new RuntimeException("Movie not found for deleting it"));
 
         MovieResponseDTO DTO=new MovieResponseDTO(
                 movie.getId(),

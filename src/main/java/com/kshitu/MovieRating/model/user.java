@@ -17,7 +17,7 @@ public class user {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "reviewer_name")
+    @OneToMany(mappedBy = "reviewer_name", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<review> review_written;
 
 }

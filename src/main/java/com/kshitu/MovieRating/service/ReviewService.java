@@ -29,10 +29,8 @@ public class ReviewService {
 
         review review = new review();
 
-        user u = user_repo.findById(json.user_id())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        movies m = movie_repo.findById(json.movie_id())
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+        user u = user_repo.findById(json.user_id()).orElseThrow(() -> new RuntimeException("User not found"));
+        movies m = movie_repo.findById(json.movie_id()).orElseThrow(() -> new RuntimeException("Movie not found"));
 
         review.setReviewer_name(u);
         review.setMovie(m);
@@ -72,7 +70,7 @@ public class ReviewService {
     }
 
     public ReviewResponseDTO updateReview(Long id, ReviewRequestDTO json) {
-        review review=review_repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        review review=review_repo.findById(id).orElseThrow(() -> new RuntimeException("Review not found for updating"));
 
         review.setContent(json.content());
         review.setRating(json.rating());
@@ -91,7 +89,7 @@ public class ReviewService {
 
     public ReviewResponseDTO deleteReview(Long id) {
 
-        review review=review_repo.findById(id).orElseThrow();
+        review review=review_repo.findById(id).orElseThrow(()-> new RuntimeException("Review not found for deleting it"));
         ReviewResponseDTO DTO=new ReviewResponseDTO(
                 review.getId(),
                 review.getMovie().getName(),

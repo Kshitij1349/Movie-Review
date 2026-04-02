@@ -47,7 +47,7 @@ public class UserService {
 
 
     public UserResponseDTO getUserById(Long id) {
-        user u=repo.findById(id).orElseThrow();
+        user u=repo.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
 
         return new UserResponseDTO(
                 u.getId(),
@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public UserResponseDTO updateUser(Long id, UserRequestDTO json) {
-        user u=repo.findById(id).orElseThrow();
+        user u=repo.findById(id).orElseThrow(()-> new RuntimeException("User not found for updating"));
         u.setName(json.name());
 
         repo.save(u);
@@ -68,7 +68,7 @@ public class UserService {
     }
 
     public UserResponseDTO deleteUser(Long id) {
-        user u=repo.findById(id).orElseThrow();
+        user u=repo.findById(id).orElseThrow(()-> new RuntimeException("Movie not found for deleting it"));
         repo.deleteById(id);
 
         return new UserResponseDTO(
